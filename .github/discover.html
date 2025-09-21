@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artisan Newsletter</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f9fafb;
+      margin: 0;
+      padding: 2rem;
+    }
+    .newsletter {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    .newsletter h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .newsletter p {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+    .newsletter input {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .newsletter button {
+      width: 100%;
+      padding: 0.9rem;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .newsletter button:hover {
+      background: #1d4ed8;
+    }
+    .credit {
+      text-align: center;
+      font-size: 0.85rem;
+      margin-top: 2rem;
+      color: #777;
+    }
+    @media (max-width: 500px) {
+      body { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <section class="newsletter">
+    <h2>Join Our Artisan Newsletter</h2>
+    <p>Get updates about local handmade crafts, workshops & special offers.</p>
+    <form>
+      <input type="email" name="email" placeholder="Your email address" required>
+      <input type="tel" name="phone" placeholder="Your phone number" pattern="[0-9]{10}" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <p class="credit">
+    Inspired by local artisan communities • <a href="https://example.com" target="_blank">Reference Site</a>
+  </p>
+</body>
+</html>

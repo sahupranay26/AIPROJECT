@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtisanCrafts - Handmade Treasures Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #4a6b5f;
+            --primary-light: #6a8e7f;
+            --accent: #d4a76a;
+            --dark: #2c3e33;
+            --light: #f9f6f1;
+            --white: #ffffff;
+            --text: #333333;
+            --gray: #777777;
+            --light-gray: #eaeaea;
+        }
+        
+        body {
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: var(--white);
+            color: var(--dark);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .nav-icon {
+            position: relative;
+            font-size: 1.2rem;
+            color: var(--dark);
+            transition: color 0.3s ease;
+        }
+        
+        .nav-icon:hover {
+            color: var(--primary);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1543365067-f488401f5c6a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        /* Categories Section */
+        .categories {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            background: var(--light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .category-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .category-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .category-card:hover .category-img img {
+            transform: scale(1.1);
+        }
+        
+        .category-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .category-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        /* Products Section */
+        .products {
+            padding: 80px 0;
+            background: var(--light);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+        
+        .product-img {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        .product-desc {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Artisan Story Section */
+        .artisan-story {
+            padding: 80px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1575224300306-1b8da36134ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 1s;
+        }
+        
+        .story-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+        
+        .story-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            padding: 80px 0;
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .newsletter p {
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-form input {
+            padding: 15px;
+            width: 300px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background: var(--white);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--white);
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+        }
+        
+        .footer-column p {
+            margin-bottom: 20px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 300;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            nav ul li {
+                margin-left: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 10px 15px;
+            }
+            
+            .hero {
+                height: 500px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .newsletter-form input {
+                width: 100%;
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 5px;
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 24px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .category-info h3 {
+                font-size: 1.2rem;
+            }
+            
+            .product-info h3 {
+                font-size: 1.1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Utility Classes */
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--white);
+            padding: 14px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(74, 107, 95, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(74, 107, 95, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hands"></i>
+                    <span>ArtisanCrafts</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Shop</a></li>
+                        <li><a href="#">Artisans</a></li>
+                        <li><a href="#">Collections</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </nav>
+                <div class="nav-icons">
+                    <a href="#" class="nav-icon">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <a href="#" class="nav-icon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <a href="#" class="nav-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">3</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover Handcrafted Treasures</h1>
+                <p>Support local artisans and own a piece of authentic craftsmanship</p>
+                <a href="#" class="btn">Shop Now</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Shop By Category</h2>
+            <div class="category-grid">
+                <div class="category-card" style="animation: fadeInUp 1s ease 0.2s forwards;">
+                    <div class="category-img">
+                        <img src="/assets/img/images (2).jfif" alt="Pottery">
+                    </div>
+                    <div class="category-info">
+                        <h3>Pottery & Ceramics</h3>
+                        <p>Handcrafted clay artistry</p>
+                    </div>
+                </div>
+                
+                <div class="category-card" style="animation: fadeInUp 1s ease 0.4s forwards;">
+                    <div class="category-img">
+                        <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Textiles">
+                    </div>
+                    <div class="category-info">
+                        <h3>Textiles & Weaving</h3>
+                        <p>Traditional fabrics and patterns</p>
+                    </div>
+                </div>
+                
+                <div class="category-card" style="animation: fadeInUp 1s ease 0.6s forwards;">
+                    <div class="category-img">
+                        <img src="/assets/img/jew.jpg" alt="Jewelry">
+                    </div>
+                    <div class="category-info">
+                        <h3>Jewelry & Accessories</h3>
+                        <p>Handmade adornments</p>
+                    </div>
+                </div>
+                
+                <div class="category-card" style="animation: fadeInUp 1s ease 0.8s forwards;">
+                    <div class="category-img">
+                        <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Paintings">
+                    </div>
+                    <div class="category-info">
+                        <h3>Paintings & Art</h3>
+                        <p>Traditional and contemporary art</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-card" style="animation: fadeInUp 1s ease 0.2s forwards;">
+                    <div class="product-img">
+                        <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRVKGBElW24oYR_5-y5126NbQ9oPOek5PvBeYmDUHm6tWW9sRE8LUewqEI7jeafgRlxP0JQEMRFw3YXLNbxoD0eD0PC1y2C7J_EIoSeXpg" alt="Blue Pottery">
+                        <div class="product-badge">Bestseller</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Blue Pottery Vase</h3>
+                        <div class="product-price">
+                            ₹2,499 <span class="original-price">₹3,199</span>
+                        </div>
+                        <p class="product-desc">Handcrafted blue pottery from Jaipur, featuring intricate traditional patterns.</p>
+                        <div class="product-actions">
+                            <button class="btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" style="animation: fadeInUp 1s ease 0.4s forwards;">
+                    <div class="product-img">
+                        <img src="data:image/jpeg;base64,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" alt="Pashmina Shawl">
+                        <div class="product-badge">New</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Kashmiri Pashmina Shawl</h3>
+                        <div class="product-price">
+                            ₹5,999 <span class="original-price">₹7,499</span>
+                        </div>
+                        <p class="product-desc">Luxurious hand-woven pashmina shawl from Kashmir with exquisite embroidery.</p>
+                        <div class="product-actions">
+                            <button class="btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" style="animation: fadeInUp 1s ease 0.6s forwards;">
+                    <div class="product-img">
+                        <img src="https://gogalgaistore.com/cdn/shop/files/ElephantCarvingbrown1.jpg?v=1705555886 " alt="Wooden Sculpture">
+                    </div>
+                    <div class="product-info">
+                        <h3>Handcarved Wooden Elephant</h3>
+                        <div class="product-price">
+                            ₹3,799
+                        </div>
+                        <p class="product-desc">Exquisitely handcarved sandalwood elephant from South India, traditional craftsmanship.</p>
+                        <div class="product-actions">
+                            <button class="btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" style="animation: fadeInUp 1s ease 0.8s forwards;">
+                    <div class="product-img">
+                        <img src="https://lh3.googleusercontent.com/pw/AIL4fc9Wo6XtNfTgJBhFH_VGwb_Nw3Y518iiYFUnKe_-YK1WdShZSRxkxvta7BVojDebQ4Lfr2gEH_6DzMKzYEXCnxNf8spkFxBoE3iQROKKdc4-CdjheeKm0ojIt_BDB4CdqYSYLDGPdw5X1erooqAjsCJv=w663-h893-s-no?authuser=0" alt="Madhubani Painting">
+                    </div>
+                    <div class="product-info">
+                        <h3>Madhubani Painting</h3>
+                        <div class="product-price">
+                            ₹4,299
+                        </div>
+                        <p class="product-desc">Traditional Madhubani art from Bihar, depicting cultural stories and motifs.</p>
+                        <div class="product-actions">
+                            <button class="btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Artisan Story Section -->
+    <section class="artisan-story">
+        <div class="container">
+            <div class="story-content">
+                <h2>Meet The Artisans</h2>
+                <p>Each product on our platform tells a story of tradition, skill, and dedication. Our artisans come from generations of craftspeople who have honed their skills over decades. By purchasing from ArtisanCrafts, you're not just buying a product – you're helping preserve India's cultural heritage and supporting local communities.</p>
+                <a href="#" class="btn btn-outline">Discover Their Stories</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Join Our Community</h2>
+                <p>Subscribe to our newsletter for updates on new products, artisan stories, and exclusive offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+                <p>By subscribing, you agree to our Privacy Policy</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ArtisanCrafts</h3>
+                    <p>Connecting traditional Indian artisans with global audiences through our marketplace.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#">Pottery & Ceramics</a></li>
+                        <li><a href="#">Textiles & Weaving</a></li>
+                        <li><a href="#">Jewelry & Accessories</a></li>
+                        <li><a href="#">Paintings & Art</a></li>
+                        <li><a href="#">Woodwork</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">The Artisans</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 ArtisanCrafts. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Animation for elements on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.category-card, .product-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = (entry.target.classList.contains('category-card') ? 0.2 : 0.1) + 's';
+                        entry.target.style.animation = `fadeInUp 1s ease ${delay} forwards`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Add to cart functionality
+            const addToCartButtons = document.querySelectorAll('.btn');
+            const cartCount = document.querySelector('.cart-count');
+            let count = 3;
+            
+            addToCartButtons.forEach(button => {
+                if (button.textContent === 'Add to Cart') {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        count++;
+                        cartCount.textContent = count;
+                        
+                        // Animation effect
+                        this.textContent = 'Added!';
+                        this.style.background = '#2ecc71';
+                        
+                        setTimeout(() => {
+                            this.textContent = 'Add to Cart';
+                            this.style.background = '';
+                        }, 1500);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
