@@ -72,6 +72,4 @@ pip install -r requirements.txt
 
 
 
----
-
-Do you want me to make it **minimal & professional (like open-source projects)**, or keep it **fun & creative (with emojis/designs)** like the above?
+---
